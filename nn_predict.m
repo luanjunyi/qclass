@@ -13,8 +13,11 @@ p = zeros(size(X, 1), 1);
 h1 = sigmoid([ones(m, 1) X] * Theta1');
 h2 = sigmoid([ones(m, 1) h1] * Theta2');
 
-p = (h2 >= 0.5);
-%[dummy, p] = max(h2, [], 2);
+if size(h2, 2) == 1
+  p = (h2 >= 0.5);
+else
+  [dummy, p] = max(h2, [], 2);
+end
 
 % =========================================================================
 

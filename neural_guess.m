@@ -11,7 +11,7 @@ function y_label = neural_guess(X, y, X_query)
                                      input_layer_size, ...
                                      hidden_layer_size, ...
                                      num_labels, X, y, lambda);
-  options = optimset('MaxIter', 200);
+  options = optimset('MaxIter', 50);
   
   [nn_params, cost] = fmincg(costFunction, initial_nn_params, options);
   

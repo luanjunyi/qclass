@@ -1,0 +1,1 @@
+echo `comm -12 <(sort out.txt) <(sort output00.txt) | wc -l` / `wc -l output00.txt | cut -f 1 -d ' '` | bc -l

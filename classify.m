@@ -1,27 +1,22 @@
 clear ; close all; clc
 
-fd = fopen('input00.txt');
+[X, y, X_query, X_query_id] = load_data('input00.txt', 0);
+fprintf('X size:\n');
+disp(size(X));
+fprintf('y size:\n');
+disp(size(y));
+fflush(stdout);
 
-line = fgets(fd);
-line = str2num(line);
-record_num = line(1);
-feature_num = line(2);
-fprintf('recorde num:%d, feature_num:%d\n', record_num, feature_num);
+% y_result = rand_guess(X, y, X_query);
+y_result = logit_guess(X, y, X_query);
 
-X = [];
-y = [];
-
-for i = 1:record_num
-   line = fgets(fd);
-   line = strsplit(line);
-   yi = str2num(cell2mat(line(2)));
-   y(end + 1) = (yi == 1);
-   xi = zeros(1, feature_num);
-   line = line(3:end);
-   [idx val] = cellfun(@parseCell, line);
-   xi(idx) = val;
-   X(end + 1, :) = xi;
+% map 0, 1 back to -1 +1
+y_result = y_result * 2 - 1;
+fout = fopen('out.txt', 'w');
+for i = 1:size(X_query_id, 2)
+    fprintf(fout, '%s %+d\n', X_query_id{i}, y_result(i));
 end
+fclose(fout);
 
-X;
-y;
+
+

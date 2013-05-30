@@ -1,4 +1,6 @@
 function y_label = neural_guess(X, y, X_query)
+  y = y + 1;
+    
   input_layer_size = size(X, 2);
   hidden_layer_size = 25;
   num_labels = 2;
@@ -9,6 +11,8 @@ function y_label = neural_guess(X, y, X_query)
   initial_Theta1 = randInitializeWeights(input_layer_size, hidden_layer_size);
   initial_Theta2 = randInitializeWeights(hidden_layer_size, num_labels);
   initial_nn_params = [initial_Theta1(:); initial_Theta2(:)];
+  
+  
   costFunction = @(p) nnCostFunction(p, ...
                                      input_layer_size, ...
                                      hidden_layer_size, ...

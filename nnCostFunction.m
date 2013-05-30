@@ -67,6 +67,7 @@ X = [ones(m, 1) X];
 for i = 1:m
   yi = zeros(num_labels, 1);
   yi(y(i)) = 1;
+
   a1 = X(i, :)';
   a2 = [1; sigmoid(Theta1 * a1)];
   a3 = sigmoid(Theta2 * a2);

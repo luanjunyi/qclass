@@ -5,7 +5,7 @@ fprintf('X size:\n');
 disp(size(X));
 fprintf('y size:\n');
 disp(size(y));
-fflush(stdout);
+%fflush(stdout);
 
 % y_result = rand_guess(X, y, X_query);
 y_result = neural_guess(X, y, X_query);

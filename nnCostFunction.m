@@ -70,29 +70,29 @@ for i = 1:m
   a1 = X(i, :)';
   a2 = [1; sigmoid(Theta1 * a1)];
   a3 = sigmoid(Theta2 * a2);
-  J += -yi' * log(a3) - (1 - yi)' * log(1 - a3);
+  J = J - yi' * log(a3) - (1 - yi)' * log(1 - a3);
 
   delta3 = a3 - yi;
   delta2 = Theta2' * delta3 .* a2 .* (1 - a2);
   delta2 = delta2(2:end);
 
-  Theta2_grad += delta3 * a2';
-  Theta1_grad += delta2 * a1';
+  Theta2_grad = Theta2_grad + delta3 * a2';
+  Theta1_grad = Theta1_grad + delta2 * a1';
 end
 
-J /= m;
-Theta1_grad ./= m;
-Theta2_grad ./= m;
+J = J / m;
+Theta1_grad = Theta1_grad ./ m;
+Theta2_grad = Theta2_grad ./ m;
 
 
 % Regularization
 reg = sum(sum(Theta1(:, 2:end) .^ 2)) + sum(sum(Theta2(:, 2:end) .^ 2));
-reg *= lambda / (2 * m);
+reg = reg * lambda / (2 * m);
 
-J += reg;
+J = J + reg;
 
-Theta1_grad += (lambda / m) * [zeros(size(Theta1, 1), 1) Theta1(:, 2:end)];
-Theta2_grad += (lambda / m) * [zeros(size(Theta2, 1), 1) Theta2(:, 2:end)];
+Theta1_grad = Theta1_grad + (lambda / m) * [zeros(size(Theta1, 1), 1) Theta1(:, 2:end)];
+Theta2_grad = Theta2_grad + (lambda / m) * [zeros(size(Theta2, 1), 1) Theta2(:, 2:end)];
 
 % -------------------------------------------------------------
 

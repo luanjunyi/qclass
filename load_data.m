@@ -1,5 +1,5 @@
 function [X, y, X_query, X_query_id] =  load_data(input_file_name, force)
-  if exist('data.mat', 'file') == 2 && !force
+  if exist('data.mat', 'file') == 2 & ~force
       fprintf('loading from data.mat\n');
       load('data.mat');
   else
@@ -15,11 +15,11 @@ function [X, y, X_query, X_query_id] =  load_data(input_file_name, force)
       y = [];
       fprintf('recorde num:%d, feature_num:%d\n', record_num, feature_num);
       fprintf('reading training set\n');
-      fflush(stdout);
+      %fflush(stdout);
       for i = 1:record_num
           if mod(i, 100) == 0
               fprintf('%d records read\n', i);
-              fflush(stdout);
+              %fflush(stdout);
           end
           line = fgets(fd);
           line = strsplit(line, ' ');
@@ -39,11 +39,11 @@ function [X, y, X_query, X_query_id] =  load_data(input_file_name, force)
       X_query_id = {};
 
       fprintf('reading %d query set\n', query_num);
-      fflush(stdout);
+      %fflush(stdout);
       for i = 1:query_num
           if mod(i, 100) == 0
               fprintf('%d records read\n', i);
-              fflush(stdout);
+              %fflush(stdout);
           end
 
           line = fgets(fd);
@@ -59,7 +59,7 @@ function [X, y, X_query, X_query_id] =  load_data(input_file_name, force)
       fclose(fd);
 
       fprintf('scaling features\n');
-      fflush(stdout);
+      %fflush(stdout);
       one = ones(size(X, 1), 1);
       X_mean = one * mean(X);
       X_range = one * max(range(X), 0.0000001);
